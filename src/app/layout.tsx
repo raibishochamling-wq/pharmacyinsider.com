@@ -18,33 +18,36 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Wakra Salt and Pepper — Al Mashaf | Authentic Indian & Chinese Cuisine in Al Wukair",
+  title: "PharmacyInsider — Honest, Research-Backed Health Tips from a Pharmacy Professional",
   description:
-    "Wakra Salt and Pepper, Al Mashaf Branch — a family-friendly restaurant in Al Wukair, Qatar serving authentic traditional Indian and Chinese dishes. Dine-in, takeaway & delivery. Rated 4.5 stars by 83 happy guests.",
+    "PharmacyInsider shares honest, research-backed health and wellness tips about vitamins, minerals, and supplements. Written by a pharmacy professional with 3+ years of hands-on experience in Qatar. Your health is my priority.",
   keywords: [
-    "Wakra Salt and Pepper",
-    "Al Mashaf restaurant",
-    "Al Wukair restaurant",
-    "Indian food Qatar",
-    "Chinese food Qatar",
-    "Butter Chicken",
-    "Paneer 65",
-    "Biryani Qatar",
-    "family restaurant Al Wukair",
+    "PharmacyInsider",
+    "pharmacy blog",
+    "vitamins",
+    "supplements",
+    "magnesium",
+    "folic acid",
+    "vitamin D",
+    "iron",
+    "omega-3",
+    "biotin",
+    "ashwagandha",
+    "melatonin",
+    "health tips Qatar",
   ],
-  authors: [{ name: "Wakra Salt and Pepper" }],
+  authors: [{ name: "PharmacyInsider" }],
   openGraph: {
-    title: "Wakra Salt and Pepper — Al Mashaf Branch",
+    title: "PharmacyInsider — Honest Health Tips from a Pharmacy Professional",
     description:
-      "Authentic traditional Indian & Chinese cuisine in Al Wukair, Qatar. Rated 4.5★ by 83 happy guests. Dine-in, takeaway & delivery available.",
-    siteName: "Wakra Salt and Pepper",
+      "Research-backed tips on vitamins, minerals, and supplements from a pharmacy professional with 3+ years of experience. Your health is my priority.",
+    siteName: "PharmacyInsider",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wakra Salt and Pepper — Al Mashaf Branch",
-    description:
-      "Authentic traditional Indian & Chinese cuisine in Al Wukair, Qatar.",
+    title: "PharmacyInsider",
+    description: "Honest, research-backed health tips from a pharmacy professional.",
   },
 };
 

@@ -1,17 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Navbar } from "@/components/site/navbar";
-import { Hero } from "@/components/site/hero";
-import { QuickInfo } from "@/components/site/quick-info";
-import { About } from "@/components/site/about";
-import { Services } from "@/components/site/services";
-import { Menu } from "@/components/site/menu";
-import { Reviews } from "@/components/site/reviews";
-import { Location } from "@/components/site/location";
-import { CTA } from "@/components/site/cta";
-import { Footer } from "@/components/site/footer";
-import { AdminApp } from "@/components/admin/admin-app";
+import { BlogApp } from "@/components/blog/blog-app";
+import { AdminApp } from "@/components/admin-blog/admin-app";
 
 export default function Home() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -26,24 +17,19 @@ export default function Home() {
     return () => window.removeEventListener("hashchange", checkHash);
   }, []);
 
+  const exitAdmin = () => {
+    window.location.hash = "";
+    setIsAdmin(false);
+  };
+
+  const enterAdmin = () => {
+    window.location.hash = "admin";
+    setIsAdmin(true);
+  };
+
   if (isAdmin) {
-    return <AdminApp />;
+    return <AdminApp onExit={exitAdmin} />;
   }
 
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-      <main className="flex-1">
-        <Hero />
-        <QuickInfo />
-        <About />
-        <Services />
-        <Menu />
-        <Reviews />
-        <Location />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
-  );
+  return <BlogApp onAdminClick={enterAdmin} />;
 }

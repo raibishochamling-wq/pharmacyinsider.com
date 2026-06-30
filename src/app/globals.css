@@ -45,70 +45,70 @@
 }
 
 :root {
-  /* Restaurant warm theme — saffron, burgundy, cream */
-  --radius: 0.75rem;
+  /* PharmacyInsider — clean editorial health theme */
+  --radius: 0.625rem;
 
-  --background: oklch(0.98 0.012 85);          /* warm cream */
-  --foreground: oklch(0.22 0.03 30);           /* deep brown */
+  --background: oklch(0.99 0.005 180);          /* near-white with hint of teal */
+  --foreground: oklch(0.22 0.02 220);           /* deep slate */
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 30);
+  --card-foreground: oklch(0.22 0.02 220);
 
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 30);
+  --popover-foreground: oklch(0.22 0.02 220);
 
-  --primary: oklch(0.55 0.18 38);              /* saffron/amber */
-  --primary-foreground: oklch(0.98 0.01 85);
+  --primary: oklch(0.5 0.11 180);               /* teal — health, trust */
+  --primary-foreground: oklch(0.99 0.005 180);
 
-  --secondary: oklch(0.94 0.02 60);            /* warm beige */
-  --secondary-foreground: oklch(0.3 0.05 30);
+  --secondary: oklch(0.96 0.015 180);
+  --secondary-foreground: oklch(0.3 0.03 220);
 
-  --muted: oklch(0.95 0.015 70);
-  --muted-foreground: oklch(0.48 0.03 40);
+  --muted: oklch(0.96 0.01 200);
+  --muted-foreground: oklch(0.5 0.02 220);
 
-  --accent: oklch(0.42 0.14 28);               /* deep burgundy */
-  --accent-foreground: oklch(0.98 0.01 85);
+  --accent: oklch(0.72 0.16 65);                /* warm amber for highlights */
+  --accent-foreground: oklch(0.22 0.02 220);
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.025 60);
-  --input: oklch(0.92 0.02 60);
-  --ring: oklch(0.55 0.18 38);
+  --border: oklch(0.92 0.01 200);
+  --input: oklch(0.92 0.01 200);
+  --ring: oklch(0.5 0.11 180);
 
-  --chart-1: oklch(0.55 0.18 38);              /* saffron */
-  --chart-2: oklch(0.42 0.14 28);              /* burgundy */
-  --chart-3: oklch(0.7 0.15 75);               /* turmeric */
-  --chart-4: oklch(0.55 0.1 145);              /* curry leaf green */
-  --chart-5: oklch(0.65 0.18 15);              /* chili red */
+  --chart-1: oklch(0.5 0.11 180);   /* teal */
+  --chart-2: oklch(0.72 0.16 65);   /* amber */
+  --chart-3: oklch(0.55 0.13 350);  /* rose */
+  --chart-4: oklch(0.6 0.1 145);    /* emerald */
+  --chart-5: oklch(0.55 0.15 270);  /* violet */
 
-  --sidebar: oklch(0.985 0.01 85);
-  --sidebar-foreground: oklch(0.22 0.03 30);
-  --sidebar-primary: oklch(0.55 0.18 38);
-  --sidebar-primary-foreground: oklch(0.98 0.01 85);
-  --sidebar-accent: oklch(0.94 0.02 60);
-  --sidebar-accent-foreground: oklch(0.3 0.05 30);
-  --sidebar-border: oklch(0.9 0.025 60);
-  --sidebar-ring: oklch(0.55 0.18 38);
+  --sidebar: oklch(0.985 0.005 180);
+  --sidebar-foreground: oklch(0.22 0.02 220);
+  --sidebar-primary: oklch(0.5 0.11 180);
+  --sidebar-primary-foreground: oklch(0.99 0.005 180);
+  --sidebar-accent: oklch(0.96 0.015 180);
+  --sidebar-accent-foreground: oklch(0.3 0.03 220);
+  --sidebar-border: oklch(0.92 0.01 200);
+  --sidebar-ring: oklch(0.5 0.11 180);
 }
 
 .dark {
-  --background: oklch(0.18 0.02 30);
-  --foreground: oklch(0.96 0.01 85);
-  --card: oklch(0.24 0.03 30);
-  --card-foreground: oklch(0.96 0.01 85);
-  --popover: oklch(0.24 0.03 30);
-  --popover-foreground: oklch(0.96 0.01 85);
-  --primary: oklch(0.65 0.18 38);
-  --primary-foreground: oklch(0.18 0.02 30);
-  --secondary: oklch(0.3 0.04 30);
-  --secondary-foreground: oklch(0.96 0.01 85);
-  --muted: oklch(0.3 0.04 30);
-  --muted-foreground: oklch(0.7 0.03 60);
-  --accent: oklch(0.55 0.15 28);
-  --accent-foreground: oklch(0.96 0.01 85);
+  --background: oklch(0.18 0.015 220);
+  --foreground: oklch(0.96 0.005 180);
+  --card: oklch(0.23 0.02 220);
+  --card-foreground: oklch(0.96 0.005 180);
+  --popover: oklch(0.23 0.02 220);
+  --popover-foreground: oklch(0.96 0.005 180);
+  --primary: oklch(0.65 0.12 180);
+  --primary-foreground: oklch(0.18 0.015 220);
+  --secondary: oklch(0.3 0.025 220);
+  --secondary-foreground: oklch(0.96 0.005 180);
+  --muted: oklch(0.3 0.025 220);
+  --muted-foreground: oklch(0.7 0.015 200);
+  --accent: oklch(0.75 0.16 65);
+  --accent-foreground: oklch(0.18 0.015 220);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.65 0.18 38);
+  --ring: oklch(0.65 0.12 180);
 }
 
 @layer base {
@@ -124,8 +124,7 @@
   }
 }
 
-/* Utility helpers for the restaurant theme — defined as plain CSS (not @layer)
-   so they are not overridden by Tailwind v4's bg-* utility generation. */
+/* Utility helpers — plain CSS (not @layer) so Tailwind v4 doesn't override */
 .font-serif-display {
   font-family: var(--font-playfair), Georgia, serif;
 }
@@ -135,36 +134,79 @@
 .text-balance {
   text-wrap: balance;
 }
-.bg-spice-gradient {
-  background-color: oklch(0.55 0.18 38);
-  background-image: linear-gradient(135deg, oklch(0.55 0.18 38) 0%, oklch(0.42 0.14 28) 100%);
+.bg-teal-gradient {
+  background-color: oklch(0.5 0.11 180);
+  background-image: linear-gradient(135deg, oklch(0.55 0.12 180) 0%, oklch(0.4 0.1 195) 100%);
 }
 .bg-cream-gradient {
-  background-color: oklch(0.96 0.025 75);
-  background-image: linear-gradient(180deg, oklch(0.97 0.022 80) 0%, oklch(0.93 0.035 70) 100%);
+  background-color: oklch(0.98 0.008 170);
+  background-image: linear-gradient(180deg, oklch(0.99 0.005 180) 0%, oklch(0.96 0.015 170) 100%);
+}
+.bg-hero-gradient {
+  background-color: oklch(0.22 0.02 220);
+  background-image: linear-gradient(135deg, oklch(0.22 0.03 200) 0%, oklch(0.32 0.06 190) 50%, oklch(0.45 0.1 175) 100%);
 }
 .text-shadow-warm {
   text-shadow: 0 2px 12px oklch(0.2 0.05 30 / 0.5);
 }
 
-/* Custom scrollbar for review list etc. */
-.custom-scroll::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Article content typography */
+.article-content {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: oklch(0.3 0.02 220);
 }
-.custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
+.article-content p {
+  margin-bottom: 1.25rem;
 }
-.custom-scroll::-webkit-scrollbar-thumb {
-  background: oklch(0.55 0.18 38 / 0.4);
-  border-radius: 999px;
+.article-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: oklch(0.22 0.02 220);
 }
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.55 0.18 38 / 0.7);
+.article-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.article-content ul, .article-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.article-content ul { list-style: disc; }
+.article-content ol { list-style: decimal; }
+.article-content li { margin-bottom: 0.5rem; }
+.article-content strong { font-weight: 600; color: oklch(0.22 0.02 220); }
+.dark .article-content { color: oklch(0.88 0.01 200); }
+.dark .article-content h2 { color: oklch(0.96 0.005 180); }
+.dark .article-content h3 { color: oklch(0.96 0.005 180); }
+.dark .article-content strong { color: oklch(0.96 0.005 180); }
+
+/* Pattern backgrounds */
+.pattern-dots {
+  background-image: radial-gradient(oklch(0.5 0.11 180 / 0.07) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
 
-/* Subtle pattern background */
-.pattern-dots {
-  background-image: radial-gradient(oklch(0.55 0.18 38 / 0.08) 1px, transparent 1px);
-  background-size: 18px 18px;
+/* Custom scrollbar */
+.custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb { background: oklch(0.5 0.11 180 / 0.4); border-radius: 999px; }
+.custom-scroll::-webkit-scrollbar-thumb:hover { background: oklch(0.5 0.11 180 / 0.7); }
+
+/* Line clamp helpers */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

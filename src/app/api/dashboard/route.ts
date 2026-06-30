@@ -3,56 +3,52 @@ import { db } from "@/lib/db";
 
 export async function GET() {
   try {
-    const [menuItems, reviews, reservations] = await Promise.all([
-      db.menuItem.count(),
-      db.review.count(),
-      db.reservation.count(),
+    const [totalPosts, publishedPosts, featuredPosts, drafts] = await Promise.all([
+      db.post.count(),
+      db.post.count({ where: { isPublished: true } }),
+      db.post.count({ where: { isFeatured: true } }),
+      db.post.count({ where: { isPublished: false } }),
     ]);
 
-    const publishedReviews = await db.review.count({
+    const totalViewsAgg = await db.post.aggregate({ _sum: { views: true } });
+    const totalViews = totalViewsAgg._sum.views || 0;
+
+    // Category counts
+    const allPosts = await db.post.findMany({
+      select: { category: true, views: true },
       where: { isPublished: true },
     });
-    const availableItems = await db.menuItem.count({
-      where: { isAvailable: true },
-    });
-    const pendingReservations = await db.reservation.count({
-      where: { status: "pending" },
+    const categoryStats: Record<string, { count: number; views: number }> = {};
+    for (const p of allPosts) {
+      if (!categoryStats[p.category]) categoryStats[p.category] = { count: 0, views: 0 };
+      categoryStats[p.category].count++;
+      categoryStats[p.category].views += p.views;
+    }
+
+    const recentPosts = await db.post.findMany({
+      take: 6,
+      orderBy: { publishedAt: "desc" },
+      select: { id: true, title: true, slug: true, category: true, views: true, publishedAt: true, isPublished: true },
     });
 
-    // Average rating
-    const allReviews = await db.review.findMany({
+    const topPosts = await db.post.findMany({
+      take: 5,
+      orderBy: { views: "desc" },
       where: { isPublished: true },
-      select: { rating: true },
-    });
-    const avgRating =
-      allReviews.length > 0
-        ? allReviews.reduce((s, r) => s + r.rating, 0) / allReviews.length
-        : 0;
-
-    // Recent reviews
-    const recentReviews = await db.review.findMany({
-      take: 5,
-      orderBy: { createdAt: "desc" },
-    });
-
-    // Recent reservations
-    const recentReservations = await db.reservation.findMany({
-      take: 5,
-      orderBy: { createdAt: "desc" },
+      select: { id: true, title: true, slug: true, views: true, category: true },
     });
 
     return NextResponse.json({
       stats: {
-        menuItems,
-        availableItems,
-        reviews,
-        publishedReviews,
-        avgRating: Number(avgRating.toFixed(1)),
-        reservations,
-        pendingReservations,
+        totalPosts,
+        publishedPosts,
+        featuredPosts,
+        drafts,
+        totalViews,
       },
-      recentReviews,
-      recentReservations,
+      categoryStats,
+      recentPosts,
+      topPosts,
     });
   } catch (e) {
     return NextResponse.json({ error: "Failed" }, { status: 500 });

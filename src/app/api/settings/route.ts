@@ -3,10 +3,9 @@ import { db } from "@/lib/db";
 
 export async function GET() {
   try {
-    const rows = await db.restaurantSetting.findMany();
+    const rows = await db.blogSetting.findMany();
     const settings: Record<string, string> = {};
     for (const r of rows) settings[r.key] = r.value;
-    // Never expose the password to the client
     delete settings.adminPassword;
     return NextResponse.json({ settings });
   } catch (e) {
@@ -19,7 +18,7 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const entries = Object.entries(body) as [string, string][];
     for (const [key, value] of entries) {
-      await db.restaurantSetting.upsert({
+      await db.blogSetting.upsert({
         where: { key },
         update: { value: String(value) },
         create: { key, value: String(value) },

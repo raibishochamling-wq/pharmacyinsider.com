@@ -1,0 +1,32 @@
+🚀 Initializing Z-AI SDK...
+🔎 Searching images: "colorful vitamin supplements pills flat lay clean white background"
+✅ Got 3 images
+{
+  "success": true,
+  "query": "colorful vitamin supplements pills flat lay clean white background",
+  "count": 3,
+  "ranked": false,
+  "results": [
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/3e47c8732a47.jpg",
+      "caption": "",
+      "source": "Consumer Reports",
+      "original_width": "1200px",
+      "original_height": "675px"
+    },
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/aea5f943c9e0.jpg",
+      "caption": "",
+      "source": "Alamy",
+      "original_width": "1300px",
+      "original_height": "956px"
+    },
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/777d40fc79a8.jpg",
+      "caption": "",
+      "source": "Alamy",
+      "original_width": "1300px",
+      "original_height": "956px"
+    }
+  ]
+}
