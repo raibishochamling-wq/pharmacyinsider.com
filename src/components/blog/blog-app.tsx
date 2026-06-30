@@ -87,9 +87,13 @@ export function BlogApp({ onAdminClick }: { onAdminClick: () => void }) {
     return true;
   });
 
-  const featured = filtered.filter((p) => p.isFeatured);
+  // Only separate a featured post when on the default home view (no search, all categories)
+  const showFeatured = !searchQuery && activeCategory === "All";
+  const featured = showFeatured ? filtered.filter((p) => p.isFeatured) : [];
   const featuredToShow = featured.slice(0, 1)[0];
-  const rest = filtered.filter((p) => p !== featuredToShow);
+  const rest = showFeatured
+    ? filtered.filter((p) => p !== featuredToShow)
+    : filtered;
 
   // Related posts (same category, excluding current)
   const related = currentPost
