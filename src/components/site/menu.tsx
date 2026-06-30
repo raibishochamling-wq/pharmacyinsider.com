@@ -8,7 +8,7 @@ import { menuHighlights, restaurant } from "@/lib/restaurant-data";
 
 export function Menu() {
   return (
-    <section id="menu" className="relative py-20 sm:py-28 bg-cream-gradient">
+    <section id="menu" className="relative pt-14 sm:pt-16 pb-20 sm:pb-28 bg-cream-gradient">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -16,7 +16,7 @@ export function Menu() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-10"
         >
           <Badge variant="outline" className="mb-4 text-primary border-primary/30 bg-primary/5">
             <UtensilsCrossed className="size-3 mr-1" /> Menu Highlights

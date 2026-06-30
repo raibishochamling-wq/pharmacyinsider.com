@@ -12,7 +12,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function Services() {
   return (
-    <section className="relative py-20 sm:py-24 bg-spice-gradient overflow-hidden">
+    <section className="relative pt-20 sm:pt-24 pb-14 sm:pb-16 bg-spice-gradient overflow-hidden">
       {/* Decorative pattern */}
       <div
         className="absolute inset-0 opacity-10"
