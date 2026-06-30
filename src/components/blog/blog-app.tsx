@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Search, FileQuestion } from "lucide-react";
 import { BlogNavbar } from "./blog-navbar";
@@ -22,6 +22,18 @@ export function BlogApp({ onAdminClick }: { onAdminClick: () => void }) {
   const [view, setView] = useState<View>({ kind: "home" });
   const [currentPost, setCurrentPost] = useState<Post | null>(null);
   const [postLoading, setPostLoading] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  // When search query changes, scroll to results so user sees them
+  const handleSearch = useCallback((q: string) => {
+    setSearchQuery(q);
+    if (q.trim()) {
+      // Defer scroll until DOM updates
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, []);
 
   // Load all posts once
   useEffect(() => {
@@ -113,7 +125,7 @@ export function BlogApp({ onAdminClick }: { onAdminClick: () => void }) {
             goHome();
           }}
           onSearch={(q) => {
-            setSearchQuery(q);
+            handleSearch(q);
             goHome();
           }}
           searchQuery=""
@@ -152,32 +164,32 @@ export function BlogApp({ onAdminClick }: { onAdminClick: () => void }) {
       <BlogNavbar
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
-        onSearch={setSearchQuery}
+        onSearch={handleSearch}
         searchQuery={searchQuery}
         onHomeClick={goHome}
       />
       <main className="flex-1">
-        {/* Hero — only when no search and "All" category */}
-        {!searchQuery && activeCategory === "All" && (
-          <BlogHero onSearch={setSearchQuery} searchQuery={searchQuery} />
-        )}
+        {/* Hero — always visible on home view */}
+        <BlogHero onSearch={handleSearch} searchQuery={searchQuery} />
 
-        {/* Loading */}
-        {loading ? (
-          <div className="flex items-center justify-center py-32 text-muted-foreground">
-            <Loader2 className="size-8 animate-spin mr-2" /> Loading articles…
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="text-center py-32 px-4">
-            <Search className="size-12 mx-auto text-muted-foreground/40 mb-3" />
-            <p className="text-foreground font-medium">No articles found</p>
-            <p className="text-sm text-muted-foreground mt-1">
-              {searchQuery
-                ? `No matches for "${searchQuery}". Try a different search.`
-                : `No articles in ${activeCategory} yet.`}
-            </p>
-            {(searchQuery || activeCategory !== "All") && (
-              <button
+        {/* Results section */}
+        <div ref={resultsRef} className="scroll-mt-20">
+          {/* Loading */}
+          {loading ? (
+            <div className="flex items-center justify-center py-32 text-muted-foreground">
+              <Loader2 className="size-8 animate-spin mr-2" /> Loading articles…
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-32 px-4">
+              <Search className="size-12 mx-auto text-muted-foreground/40 mb-3" />
+              <p className="text-foreground font-medium">No articles found</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {searchQuery
+                  ? `No matches for "${searchQuery}". Try a different search.`
+                  : `No articles in ${activeCategory} yet.`}
+              </p>
+              {(searchQuery || activeCategory !== "All") && (
+                <button
                 onClick={() => {
                   setSearchQuery("");
                   setActiveCategory("All");
@@ -222,6 +234,7 @@ export function BlogApp({ onAdminClick }: { onAdminClick: () => void }) {
             </div>
           </div>
         )}
+        </div>
 
         {/* About section — only on default home */}
         {!searchQuery && activeCategory === "All" && !loading && (
