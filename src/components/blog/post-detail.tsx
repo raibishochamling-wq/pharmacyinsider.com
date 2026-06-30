@@ -46,56 +46,110 @@ function coverGradient(category: string): string {
   return map[category] || map["General Health"];
 }
 
-// Render the post content (plain text with --- separators and numbered lists)
+// Render the post content — supports ## headings, --- dividers, numbered/bullet lists, paragraphs
 function renderContent(content: string) {
-  // Normalize: split on double newlines into paragraphs
-  const blocks = content
-    .split(/\n\s*\n/)
-    .map((b) => b.trim())
-    .filter(Boolean);
+  // Normalize literal \n strings to real newlines (safety for content from editor)
+  const normalized = content.replace(/\\n/g, "\n");
+  const lines = normalized.split("\n");
+  const blocks: { type: "heading" | "divider" | "numbered" | "bullet" | "para"; content: string; items?: string[] }[] = [];
+  let currentPara: string[] = [];
+  let currentList: { type: "numbered" | "bullet"; items: string[] } | null = null;
+
+  const flushPara = () => {
+    if (currentPara.length > 0) {
+      const text = currentPara.join(" ").replace(/\s+/g, " ").trim();
+      if (text) blocks.push({ type: "para", content: text });
+      currentPara = [];
+    }
+  };
+  const flushList = () => {
+    if (currentList) {
+      blocks.push({ type: currentList.type, content: "", items: currentList.items });
+      currentList = null;
+    }
+  };
+
+  for (const line of lines) {
+    const l = line.trim();
+    // Blank line — flush current paragraph/list
+    if (!l) {
+      flushPara();
+      flushList();
+      continue;
+    }
+    // Section divider
+    if (/^-{3,}$/.test(l)) {
+      flushPara();
+      flushList();
+      blocks.push({ type: "divider", content: "" });
+      continue;
+    }
+    // Markdown heading ## 
+    if (/^##\s+/.test(l)) {
+      flushPara();
+      flushList();
+      blocks.push({ type: "heading", content: l.replace(/^##\s+/, "") });
+      continue;
+    }
+    // Numbered list item
+    if (/^\d+\.\s/.test(l)) {
+      flushPara();
+      if (!currentList || currentList.type !== "numbered") {
+        flushList();
+        currentList = { type: "numbered", items: [] };
+      }
+      currentList.items.push(l.replace(/^\d+\.\s*/, ""));
+      continue;
+    }
+    // Bullet list item
+    if (/^[•·\-]\s/.test(l)) {
+      flushPara();
+      if (!currentList || currentList.type !== "bullet") {
+        flushList();
+        currentList = { type: "bullet", items: [] };
+      }
+      currentList.items.push(l.replace(/^[•·\-]\s*/, ""));
+      continue;
+    }
+    // Regular text
+    if (currentList) flushList();
+    currentPara.push(l);
+  }
+  flushPara();
+  flushList();
 
   return blocks.map((block, idx) => {
-    // Section divider
-    if (/^-{3,}$/.test(block) || block === "---") {
-      return (
-        <hr key={idx} className="my-6 border-t border-border/60" />
-      );
+    if (block.type === "divider") {
+      return <hr key={idx} className="my-6 border-t border-border/60" />;
     }
-    // Heading (short line ending with ? or starting with What/How/Why/When/Where/Who)
-    if (
-      block.length < 80 &&
-      !block.includes("\n") &&
-      (/^[A-Z][^.!?:]{0,70}\??$/.test(block) ||
-        /^(What|How|Why|When|Where|Who|Which|The Bottom Line|Key Takeaway|Summary|Important|Final Thoughts|Quick)\b/.test(block))
-    ) {
+    if (block.type === "heading") {
       return (
         <h2 key={idx} className="font-serif-display text-xl sm:text-2xl font-bold text-foreground mt-8 mb-3">
-          {block}
+          {block.content}
         </h2>
       );
     }
-    // Numbered list block
-    if (/^\d+\.\s/.test(block) || /^•\s/.test(block)) {
-      const items = block.split("\n").filter((l) => l.trim());
-      const isNumbered = /^\d+\.\s/.test(items[0] || "");
-      const ListTag = isNumbered ? "ol" : "ul";
+    if (block.type === "numbered") {
       return (
-        <ListTag key={idx} className={isNumbered ? "list-decimal" : "list-disc"}>
-          {items.map((item, i) => (
-            <li key={i} className="mb-1.5">{item.replace(/^(\d+\.|•)\s*/, "")}</li>
+        <ol key={idx} className="list-decimal mb-4 pl-5">
+          {block.items!.map((item, i) => (
+            <li key={i} className="mb-1.5">{item}</li>
           ))}
-        </ListTag>
+        </ol>
       );
     }
-    // Regular paragraph
+    if (block.type === "bullet") {
+      return (
+        <ul key={idx} className="list-disc mb-4 pl-5">
+          {block.items!.map((item, i) => (
+            <li key={i} className="mb-1.5">{item}</li>
+          ))}
+        </ul>
+      );
+    }
     return (
       <p key={idx} className="mb-4 leading-relaxed">
-        {block.split("\n").map((line, i) => (
-          <span key={i}>
-            {line}
-            {i < block.split("\n").length - 1 && <br />}
-          </span>
-        ))}
+        {block.content}
       </p>
     );
   });

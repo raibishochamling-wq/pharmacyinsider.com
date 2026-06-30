@@ -2,7 +2,9 @@ import { db } from '../src/lib/db';
 
 // Better excerpt: take the first 2-3 meaningful lines from the post content itself
 function makeExcerpt(content: string): string {
-  const lines = content.split('\n').map((l) => l.trim()).filter(Boolean);
+  // Normalize literal \n to real newlines
+  const normalized = content.replace(/\\n/g, '\n');
+  const lines = normalized.split('\n').map((l) => l.trim()).filter(Boolean);
   const meaningful: string[] = [];
   for (const line of lines) {
     // Skip junk
@@ -14,6 +16,12 @@ function makeExcerpt(content: string): string {
     if (/image is for illustrative/i.test(line)) continue;
     if (/does not represent a specific brand/i.test(line)) continue;
     if (/disclaimer/i.test(line)) continue;
+    // Skip markdown headings and dividers
+    if (/^##\s+/.test(line)) continue;
+    if (/^-{3,}$/.test(line)) continue;
+    // Skip numbered/bullet list items
+    if (/^\d+\.\s/.test(line)) continue;
+    if (/^[•·\-]\s/.test(line)) continue;
     meaningful.push(line);
     if (meaningful.join(' ').length > 200) break;
   }
