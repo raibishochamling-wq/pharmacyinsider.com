@@ -202,9 +202,17 @@ export function Footer() {
             © {year} Wakra Salt &amp; Pepper — Al Mashaf Branch. All rights
             reserved.
           </p>
-          <p className="flex items-center gap-1.5">
-            Crafted with care for the Al Wukair community
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="flex items-center gap-1.5">
+              Crafted with care for the Al Wukair community
+            </p>
+            <a
+              href="#admin"
+              className="text-background/40 hover:text-amber-300 transition-colors"
+            >
+              Staff Login
+            </a>
+          </div>
         </div>
       </div>
     </footer>

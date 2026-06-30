@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -27,6 +24,59 @@ model Post {
   content   String?
   published Boolean  @default(false)
   authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===== Restaurant Admin Models =====
+
+model MenuItem {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       String
+  category    String   @default("Main")
+  tag         String?  // e.g. "Bestseller", "Veg · Spicy"
+  badge       String?  // e.g. "Chef's Pick", "Popular"
+  image       String?
+  alt         String?
+  isFeatured  Boolean  @default(false)
+  isAvailable Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Review {
+  id            String   @id @default(cuid())
+  name          String
+  meta          String?  // e.g. "Local Guide · 8 reviews"
+  initials      String   @default("?")
+  rating        Int      @default(5)
+  title         String
+  text          String
+  ownerResponse String?
+  isPublished   Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model RestaurantSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model Reservation {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  date      String
+  time      String
+  guests    Int      @default(2)
+  notes     String?
+  status    String   @default("pending") // pending, confirmed, cancelled
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
