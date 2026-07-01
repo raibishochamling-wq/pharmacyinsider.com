@@ -100,3 +100,4 @@ pharmacyinsider/
 ---
 
 **Your health is my priority.** 💊✨
+<!-- Production deployment trigger Wed Jul  1 19:52:46 UTC 2026 -->
