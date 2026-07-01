@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   // Use "postgresql" for production (Vercel + Neon), "sqlite" for local dev
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
