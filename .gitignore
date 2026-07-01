@@ -59,3 +59,11 @@ db/*.db-journal
 /scripts/screenshots/
 /upload/
 /scripts/*.json
+
+# Sandbox-specific folders (don't deploy)
+.zscripts/
+examples/
+mini-services/
+download/
+upload/
+/skills/
